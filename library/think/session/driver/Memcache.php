@@ -37,6 +37,7 @@ class Memcache implements SessionHandlerInterface
      * @param  string    $savePath
      * @param  mixed     $sessName
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         // 检测php环境
@@ -69,6 +70,7 @@ class Memcache implements SessionHandlerInterface
      * 关闭Session
      * @access public
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         $this->gc(ini_get('session.gc_maxlifetime'));
@@ -83,6 +85,7 @@ class Memcache implements SessionHandlerInterface
      * @access public
      * @param  string $sessID
      */
+    #[\ReturnTypeWillChange]
     public function read($sessID)
     {
         return (string) $this->handler->get($this->config['session_name'] . $sessID);
@@ -95,6 +98,7 @@ class Memcache implements SessionHandlerInterface
      * @param  string    $sessData
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function write($sessID, $sessData)
     {
         return $this->handler->set($this->config['session_name'] . $sessID, $sessData, 0, $this->config['expire']);
@@ -106,6 +110,7 @@ class Memcache implements SessionHandlerInterface
      * @param  string $sessID
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessID)
     {
         return $this->handler->delete($this->config['session_name'] . $sessID);
@@ -117,6 +122,7 @@ class Memcache implements SessionHandlerInterface
      * @param  string $sessMaxLifeTime
      * @return true
      */
+    #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
         return true;

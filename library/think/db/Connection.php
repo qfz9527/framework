@@ -711,7 +711,7 @@ abstract class Connection
      * @throws \Exception
      * @throws \Throwable
      */
-    public function execute($sql, $bind = [], Query $query = null)
+    public function execute($sql, $bind = [], ?Query $query = null)
     {
         $this->initConnect(true);
 

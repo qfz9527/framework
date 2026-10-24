@@ -155,21 +155,22 @@ class Where implements ArrayAccess
     }
 
     // ArrayAccess
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
         $this->__set($name, $value);
     }
 
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return $this->__isset($name);
     }
 
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         $this->__unset($name);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->__get($name);
