@@ -70,7 +70,7 @@ class Redirect extends Response
      */
     public function getTargetUrl()
     {
-        if (strpos($this->data, '://') || (0 === strpos($this->data, '/') && empty($this->params))) {
+        if (strpos((string) $this->data, '://') || (0 === strpos((string) $this->data, '/') && empty($this->params))) {
             return $this->data;
         } else {
             return $this->app['url']->build($this->data, $this->params);

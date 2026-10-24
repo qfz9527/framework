@@ -483,10 +483,11 @@ class Container implements ArrayAccess, IteratorAggregate, Countable
         foreach ($params as $param) {
             $name = $param->getName();
             $lowerName = Loader::parseName($name);
-            $class = $param->getClass();
+            $reflectionType = $param->getType();
+            $class = $reflectionType && !$reflectionType->isBuiltin() ? $reflectionType->getName() : null;
 
             if ($class) {
-                $args[] = $this->getObjectParam($class->getName(), $vars);
+                $args[] = $this->getObjectParam($class, $vars);
             } elseif (1 == $type && !empty($vars)) {
                 $args[] = array_shift($vars);
             } elseif (0 == $type && isset($vars[$name])) {
