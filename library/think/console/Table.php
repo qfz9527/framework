@@ -143,8 +143,8 @@ class Table
     {
         if (is_array($row)) {
             foreach ($row as $key => $cell) {
-                if (!isset($this->colWidth[$key]) || strlen($cell) > $this->colWidth[$key]) {
-                    $this->colWidth[$key] = strlen($cell);
+                if (!isset($this->colWidth[$key]) || strlen((string) $cell) > $this->colWidth[$key]) {
+                    $this->colWidth[$key] = strlen((string) $cell);
                 }
             }
         }
@@ -208,7 +208,7 @@ class Table
         $content = $this->renderSeparator('top');
 
         foreach ($this->header as $key => $header) {
-            $array[] = ' ' . str_pad($header, $this->colWidth[$key], $style[1], $this->headerAlign);
+            $array[] = ' ' . str_pad((string) $header, $this->colWidth[$key], $style[1], $this->headerAlign);
         }
 
         if (!empty($array)) {
@@ -265,7 +265,7 @@ class Table
                     $array = [];
 
                     foreach ($row as $key => $val) {
-                        $array[] = ' ' . str_pad($val, $this->colWidth[$key], ' ', $this->cellAlign);
+                        $array[] = ' ' . str_pad((string) $val, $this->colWidth[$key], ' ', $this->cellAlign);
                     }
 
                     $content .= $style[0] . implode(' ' . $style[2], $array) . ' ' . $style[3] . PHP_EOL;

@@ -138,7 +138,7 @@ JS;
                     $line[] = "console.error(\"%c{$msg}\", \"{$style}\");";
                     break;
                 case 'sql':
-                    $msg = str_replace("\n", '\n', addslashes($m));
+                    $msg = str_replace("\n", '\n', addslashes((string) $m));
                     $style = "color:#009bb4;";
                     $line[] = "console.log(\"%c{$msg}\", \"{$style}\");";
                     break;

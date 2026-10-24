@@ -274,6 +274,6 @@ class Memcached extends Driver
     public function getTagItem($tag)
     {
         $tagName = $this->getTagKey($tag);
-        return explode(',', trim($this->handler->get($tagName), ','));
+        return explode(',', trim((string) $this->handler->get($tagName), ','));
     }
 }

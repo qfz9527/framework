@@ -44,7 +44,7 @@ class Download extends Response
 
         if ($this->isContent) {
             $mimeType = $this->mimeType;
-            $size = strlen($data);
+            $size = strlen((string) $data);
         } else {
             $mimeType = $this->getMimeType($data);
             $size = filesize($data);

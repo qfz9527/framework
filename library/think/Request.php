@@ -597,17 +597,17 @@ class Request
         if (!$this->baseFile) {
             $url = '';
             if (!$this->isCli()) {
-                $script_name = basename($this->server('SCRIPT_FILENAME'));
-                if (basename($this->server('SCRIPT_NAME')) === $script_name) {
+                $script_name = basename((string) $this->server('SCRIPT_FILENAME'));
+                if (basename((string) $this->server('SCRIPT_NAME')) === $script_name) {
                     $url = $this->server('SCRIPT_NAME');
-                } elseif (basename($this->server('PHP_SELF')) === $script_name) {
+                } elseif (basename((string) $this->server('PHP_SELF')) === $script_name) {
                     $url = $this->server('PHP_SELF');
-                } elseif (basename($this->server('ORIG_SCRIPT_NAME')) === $script_name) {
+                } elseif (basename((string) $this->server('ORIG_SCRIPT_NAME')) === $script_name) {
                     $url = $this->server('ORIG_SCRIPT_NAME');
-                } elseif (($pos = strpos($this->server('PHP_SELF'), '/' . $script_name)) !== false) {
-                    $url = substr($this->server('SCRIPT_NAME'), 0, $pos) . '/' . $script_name;
-                } elseif ($this->server('DOCUMENT_ROOT') && strpos($this->server('SCRIPT_FILENAME'), $this->server('DOCUMENT_ROOT')) === 0) {
-                    $url = str_replace('\\', '/', str_replace($this->server('DOCUMENT_ROOT'), '', $this->server('SCRIPT_FILENAME')));
+                } elseif (($pos = strpos((string) $this->server('PHP_SELF'), '/' . $script_name)) !== false) {
+                    $url = substr((string) $this->server('SCRIPT_NAME'), 0, $pos) . '/' . $script_name;
+                } elseif ($this->server('DOCUMENT_ROOT') && strpos((string) $this->server('SCRIPT_FILENAME'), (string) $this->server('DOCUMENT_ROOT')) === 0) {
+                    $url = str_replace('\\', '/', str_replace((string) $this->server('DOCUMENT_ROOT'), '', (string) $this->server('SCRIPT_FILENAME')));
                 }
             }
             $this->baseFile = $url;
@@ -687,7 +687,7 @@ class Request
                 // CLI模式下 index.php module/controller/action/params/...
                 $pathinfo = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
             } elseif ('cli-server' == PHP_SAPI) {
-                $pathinfo = strpos($this->server('REQUEST_URI'), '?') ? strstr($this->server('REQUEST_URI'), '?', true) : $this->server('REQUEST_URI');
+                $pathinfo = strpos((string) $this->server('REQUEST_URI'), '?') ? strstr((string) $this->server('REQUEST_URI'), '?', true) : $this->server('REQUEST_URI');
             } elseif ($this->server('PATH_INFO')) {
                 $pathinfo = $this->server('PATH_INFO');
             }
@@ -696,8 +696,8 @@ class Request
             if (!isset($pathinfo)) {
                 foreach ($this->config['pathinfo_fetch'] as $type) {
                     if ($this->server($type)) {
-                        $pathinfo = (0 === strpos($this->server($type), $this->server('SCRIPT_NAME'))) ?
-                        substr($this->server($type), strlen($this->server('SCRIPT_NAME'))) : $this->server($type);
+                        $pathinfo = (0 === strpos((string) $this->server($type), (string) $this->server('SCRIPT_NAME'))) ?
+                        substr((string) $this->server($type), strlen((string) $this->server('SCRIPT_NAME'))) : $this->server($type);
                         break;
                     }
                 }
